@@ -4,14 +4,14 @@ import logo from '../assets/download.svg';
 
 const NavBar = () => {
   return (
-    <nav>
+    <nav className="nav-bar">
       <div className="logo-area">
         <img src={logo} alt="Notes Logo" className="logo-img" />
         <span className="logo-text">Notes</span>
       </div>
       <div className="nav-links">
         <NavLink to="/">Home</NavLink>
-        <NavLink to="/notes">All Notes</NavLink>
+        <NavLink to="/pastes">All Notes</NavLink>
       </div>
     </nav>
   );
