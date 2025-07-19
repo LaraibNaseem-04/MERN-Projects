@@ -5,7 +5,8 @@ A simple and modern note-taking web app built using React and Redux Toolkit. You
 ---
 ## 🌐 Deployment
 
-Live Demo: [https://mern-projects-58z3.vercel.app](https://mern-projects-58z3.vercel.app)
+Live Demo: https://mern-projects-lmli.vercel.app/
+
 
 ## 🚀 Features
 
