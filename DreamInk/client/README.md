@@ -1,12 +1,36 @@
-# React + Vite
+# 🖋️ DreamInk
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+DreamInk is an AI-powered writing assistant web application designed to enhance productivity and creativity. It helps users write better, faster, and smarter using advanced AI models.
 
-Currently, two official plugins are available:
+## ✨ Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- 🧠 AI-based content generation (blogs, emails, stories, etc.)
+- 🔒 User authentication
+- 💰 Credit-based pricing system
+- 🎨 Clean and responsive UI
+- 📊 Usage tracking and history
+- ⚙️ Easy-to-customize frontend
 
-## Expanding the ESLint configuration
+## 🚀 Tech Stack
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### Frontend
+- **React.js**
+- **Tailwind CSS**
+- **React Router DOM**
+- **Vite** (for blazing fast development)
+
+### Backend
+- **Node.js**
+- **Express.js**
+- **MongoDB**
+- **JWT Authentication**
+
+### AI Integration
+- OpenAI / Custom GPT models (API integration)
+
+## 🛠️ Installation
+
+### Clone the repository
+```bash
+git clone https://github.com/yourusername/DreamInk.git
+cd DreamInk
