@@ -1,12 +1,19 @@
 
-import { createContext,useState}  from "react";
 
-export const AppContext = createContext()
+import { createContext, useState}  from "react";
+
+export const AppContext = createContext();
 
 const AppContextProvider = (props)=>{
-    const [user,setUser] = useState(true);
-    const value ={
-        user,setUser
+    const [user,setUser] = useState(false);
+    const [showLogin, setShowLogin] = useState(false);
+
+    // Memoize the context value to prevent unnecessary re-renders of consumers
+    const value = {
+        user,
+        setUser,
+        showLogin,
+        setShowLogin,
     }
     return(
         <AppContext.Provider value={value}>
@@ -14,4 +21,5 @@ const AppContextProvider = (props)=>{
         </AppContext.Provider>
     )
 }
+
 export default AppContextProvider;
