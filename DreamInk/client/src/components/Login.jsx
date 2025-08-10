@@ -2,9 +2,16 @@ import React, { useContext, useEffect, useState } from 'react'
 import { assets } from '../assets/assets';
 import { AppContext } from '../context/AppContext';
 import { motion, AnimatePresence } from 'framer-motion';
+import axios from 'axios';
+import { toast } from 'react-toastify';
 
 const  Login = () => {
     const [state, setState] = useState('Login')
+
+    const [name,setName] = useState('');
+    const [email,setEmail] = useState('');
+    const [password,setPassword] = useState('');
+
 
     useEffect(()=>{
       document.body.style.overflow = 'hidden';
@@ -13,7 +20,7 @@ const  Login = () => {
       }
     },[])
 
-    const {setShowLogin} = useContext(AppContext);
+    const {setShowLogin,backendUrl,setToken,setUser} = useContext(AppContext);
 
     const modalVariants = {
         hidden: { opacity: 0, y: -50, scale: 0.95 },
@@ -32,7 +39,54 @@ const  Login = () => {
         animate: { opacity: 1, height: 'auto', marginTop: '1rem', transition: { duration: 0.3 } },
         exit: { opacity: 0, height: 0, marginTop: 0, transition: { duration: 0.2 } }
     };
-    
+    const onSubmitHandler = async(e)=>{
+        e.preventDefault();
+        try{
+             if(state==='Login')
+             {
+                const {data} =await axios.post(backendUrl+'/api/user/login',{
+                    email,
+                    password
+                });
+                if(data.success)
+                {
+                     setToken(data.token);
+                     setUser(data.user);
+                     localStorage.setItem('token',data.token);
+                     setShowLogin(false);
+
+                }
+                else
+                {
+                    toast.error(data.message);
+
+                }
+             }
+             else{
+                const {data} =await axios.post(backendUrl+'/api/user/register',{
+                    name,
+                    email,
+                    password
+                });
+                if(data.success)
+                {   
+                  setToken(data.token)
+                  setUser(data.user)
+                  localStorage.setItem('token',data.token)
+                  setShowLogin(false)
+                
+                }
+                else{
+                    toast.error(data.message);
+                   }
+                }
+        }
+        catch(error)
+        {
+               toast.error(error.message);
+        }
+    }
+     
   return (
     <motion.div 
         className='fixed top-0 left-0 right-0 bottom-0 z-10 backdrop-blur-sm bg-black/30 flex justify-center items-center'
@@ -40,7 +94,7 @@ const  Login = () => {
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
     >
-        <motion.form 
+        <motion.form onSubmit={onSubmitHandler}
             variants={modalVariants}
             initial="hidden"
             animate="visible"
@@ -60,18 +114,18 @@ const  Login = () => {
                     className='border px-6 py-2 flex items-center gap-2 rounded-full overflow-hidden'
                 >
                     <img  className= 'h-5 w-5'src={assets.profile_icon} alt="" />
-                    <input type="text" placeholder='Full Name' className='outline-none text-sm w-full bg-transparent' />
+                    <input onChange={e=>setName(e.target.value)} value={name} type="text" placeholder='Full Name' className='outline-none text-sm w-full bg-transparent' />
                 </motion.div>
              )}
             </AnimatePresence>
 
             <div className='border px-6 py-2 flex items-center gap-2 rounded-full mt-4'>
                 <img  className= 'h-5 w-5'src={assets.email_icon} alt="" />
-                <input type="email" placeholder='Email id' className='outline-none text-sm w-full bg-transparent' />
+                <input  onChange={e=>setEmail(e.target.value)} value={email} type="email" placeholder='Email id' className='outline-none text-sm w-full bg-transparent' />
             </div>
             <div className='border px-6 py-2 flex items-center gap-2 rounded-full mt-4'>
                 <img  className= 'h-5 w-5'src={assets.lock_icon} alt="" />
-                <input type="password" placeholder='Password' className='outline-none text-sm w-full bg-transparent' />
+                <input  onChange={e=>setPassword(e.target.value)} value={password} type="password" placeholder='Password' className='outline-none text-sm w-full bg-transparent' />
             </div>
             <a href='#' className='block text-sm text-blue-600 my-4 cursor-pointer hover:underline'>Forgot password?</a>
             <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} className='bg-blue-600 w-full text-white py-2 rounded-full'>{state==="Login" ? 'Sign in': 'Sign up'}</motion.button>

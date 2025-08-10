@@ -4,7 +4,15 @@ import { AppContext } from '../context/AppContext'
 import { motion } from 'framer-motion'
 
 const BuyCredit = () => {
-  const { user } = useContext(AppContext)
+  const { user, initiatePurchase, setShowLogin } = useContext(AppContext)
+
+  const handlePurchaseClick = (planId) => {
+    if (!user) {
+      setShowLogin(true);
+    } else {
+      initiatePurchase(planId);
+    }
+  }
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -95,7 +103,7 @@ const BuyCredit = () => {
               ₹{item.price} / {item.credits} Credits
             </p>
 
-            <motion.button
+            <motion.button onClick={() => handlePurchaseClick(item.id)}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               className={`mt-6 font-bold py-2 px-8 rounded-full w-full ${item.id === 'Pro'
